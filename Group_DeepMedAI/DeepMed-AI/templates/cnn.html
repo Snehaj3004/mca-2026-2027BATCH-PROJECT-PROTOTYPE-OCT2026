@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chest X-Ray Analysis | DeepMed AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    {% set active_nav = "cnn" %}
+    {% set page_title = "Chest X-Ray" %}
+    {% include "partials/app_shell_start.html" %}
+
+    <main class="analysis-container">
+        <a class="breadcrumb" href="{{ url_for('home') }}">← Back to overview</a>
+        <section class="analysis-card">
+            <div class="page-heading">
+                <span class="eyebrow">CNN · Image classification</span>
+                <h1>Chest X-ray analysis</h1>
+                <p>Upload a chest X-ray image for a NORMAL or PNEUMONIA model classification.</p>
+            </div>
+
+            {% if error %}
+            <div class="error" role="alert">{{ error }}</div>
+            {% endif %}
+
+            <form action="{{ url_for('cnn_predict') }}" method="POST" enctype="multipart/form-data">
+                <label class="upload-area" for="xray">
+                    <span class="upload-icon" aria-hidden="true">🩻</span>
+                    <strong>Choose a chest X-ray</strong>
+                    <p data-file-name aria-live="polite">PNG, JPG, or JPEG · Maximum size 10 MB</p>
+                    <input id="xray" type="file" name="xray" accept=".jpg,.jpeg,.png" required>
+                </label>
+                <button type="submit" class="analyze-button">
+                    Analyze image <span aria-hidden="true">→</span>
+                </button>
+            </form>
+
+            <div class="info-box">
+                <h3>About this model</h3>
+                <p>The CNN returns a class label and a model score. A model score is not a clinical probability or diagnosis.</p>
+                <p><strong>Classes:</strong> NORMAL and PNEUMONIA</p>
+            </div>
+
+            <aside class="disclaimer">
+                <strong>Research prototype</strong>
+                <p>For educational and research use only. Results are not clinically validated and must not replace qualified medical assessment.</p>
+            </aside>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    {% include "partials/app_shell_end.html" %}
+</body>
+
+</html>
