@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DeepMed AI - Medical AI System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+    {% set active_nav = "overview" %}
+    {% set page_title = "Overview" %}
+    {% include "partials/app_shell_start.html" %}
+
+
+    <!-- =====================================================
+         HERO SECTION
+         ===================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="eyebrow">Multimodal AI · Research prototype</span>
+
+            <h2>
+                A clearer view of patient data
+            </h2>
+
+            <p>
+                Explore chest X-ray classification, 24-step vital
+                sequence analysis, and patient measurement
+                anomaly detection in one research workspace.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MODULES
+         ===================================================== -->
+
+    <main class="dashboard">
+
+        <div class="section-heading">
+            <div>
+                <h2>Analysis modules</h2>
+                <p>Choose a workflow to get started.</p>
+            </div>
+        </div>
+
+
+        <div class="module-grid">
+
+
+            <!-- =================================================
+                 CNN CARD
+                 ================================================= -->
+
+            <article class="module-card">
+
+                <div class="module-icon">
+                    🩻
+                </div>
+
+                <span class="module-kicker">CNN · Image classification</span>
+
+                <h3>Chest X-Ray Analysis</h3>
+                <h4>NORMAL or PNEUMONIA</h4>
+
+                <p>
+                    Submit a chest X-ray and view the model’s
+                    NORMAL or PNEUMONIA classification.
+                </p>
+
+                <a href="{{ url_for('cnn') }}"
+                   class="module-button">
+
+                    Analyze X-Ray
+
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </article>
+
+
+            <!-- =================================================
+                 LSTM CARD
+                 ================================================= -->
+
+            <article class="module-card">
+
+                <div class="module-icon">
+                    ❤️
+                </div>
+
+                <span class="module-kicker">LSTM · Sequence analysis</span>
+
+                <h3>Patient Vital Monitoring</h3>
+                <h4>24 chronological readings</h4>
+
+                <p>
+                    Upload 24 chronological readings for one
+                    patient and inspect the model’s raw score.
+                </p>
+
+                <a href="{{ url_for('lstm') }}"
+                   class="module-button">
+
+                    Analyze Vitals
+
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </article>
+
+
+            <!-- =================================================
+                 AUTOENCODER CARD
+                 ================================================= -->
+
+            <article class="module-card">
+
+                <div class="module-icon">
+                    ⚠️
+                </div>
+
+                <span class="module-kicker">Autoencoder · Reconstruction</span>
+
+                <h3>Anomaly Detection</h3>
+                <h4>Patient measurement patterns</h4>
+
+                <p>
+                    Check a set of patient measurements against
+                    the trained reconstruction-error threshold.
+                </p>
+
+                <a href="{{ url_for('anomaly') }}"
+                   class="module-button">
+
+                    Detect Anomaly
+
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </article>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             SYSTEM ARCHITECTURE
+             ===================================================== -->
+
+        <section class="architecture">
+
+            <div class="section-heading">
+                <div>
+                    <h2>How the modules work</h2>
+                    <p>Each model handles a different type of input.</p>
+                </div>
+            </div>
+
+
+            <div class="architecture-flow">
+
+
+                <div class="architecture-item">
+
+                    <span>🩻</span>
+
+                    <strong>
+                        Medical Image
+                    </strong>
+
+                    <small>
+                        Chest X-Ray
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-model">
+
+                    <strong>
+                        CNN
+                    </strong>
+
+                    <small>
+                        Image Analysis
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-result">
+
+                    <strong>
+                        Image Result
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="architecture-flow">
+
+
+                <div class="architecture-item">
+
+                    <span>❤️</span>
+
+                    <strong>
+                        Patient Vitals
+                    </strong>
+
+                    <small>
+                        Time-Series Data
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-model">
+
+                    <strong>
+                        LSTM
+                    </strong>
+
+                    <small>
+                        Sequence Analysis
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-result">
+
+                    <strong>
+                        Vital Status
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="architecture-flow">
+
+
+                <div class="architecture-item">
+
+                    <span>📊</span>
+
+                    <strong>
+                        Health Measurements
+                    </strong>
+
+                    <small>
+                        Patient Data
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-model">
+
+                    <strong>
+                        Autoencoder
+                    </strong>
+
+                    <small>
+                        Reconstruction Analysis
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-result">
+
+                    <strong>
+                        Anomaly Status
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DISCLAIMER
+             ===================================================== -->
+
+        <section class="disclaimer" aria-label="Research disclaimer">
+
+            <strong>
+                Research & Decision-Support System
+            </strong>
+
+            <p>
+                The bundled vital-sign and anomaly datasets are synthetic.
+                These models are for research demonstration and are not
+                clinically validated or a substitute for professional
+                medical judgment.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="site-footer">
+        <p>
+            © 2026 DeepMed AI
+        </p>
+
+        <p>Research prototype · CNN · LSTM · Autoencoder</p>
+    </footer>
+
+    {% include "partials/app_shell_end.html" %}
+</body>
+
+</html>

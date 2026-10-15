@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vital Sequence Analysis | DeepMed AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    {% set active_nav = "lstm" %}
+    {% set page_title = "Vital Sequences" %}
+    {% include "partials/app_shell_start.html" %}
+
+    <main class="lstm-container">
+        <a href="{{ url_for('home') }}" class="breadcrumb">← Back to overview</a>
+
+        <div class="lstm-header">
+            <span class="eyebrow">LSTM · Sequence analysis</span>
+            <h1>Patient vital history</h1>
+            <p>Upload 24 chronological readings for one patient. The model analyzes the measurements you provide.</p>
+        </div>
+
+        {% if error %}
+        <div class="error-message" role="alert">{{ error }}</div>
+        {% endif %}
+
+        <form action="{{ url_for('lstm_predict') }}" method="POST" enctype="multipart/form-data">
+            <section class="vitals-card">
+                <h2>Upload readings</h2>
+                <p>Choose one CSV file containing exactly 24 readings.</p>
+
+                <label class="upload-area" for="vitals_csv">
+                    <span class="upload-icon" aria-hidden="true">↥</span>
+                    <strong>Select a patient vitals CSV</strong>
+                    <p id="selected-file-name" data-file-name aria-live="polite">CSV file · 24 rows required</p>
+                    <input
+                        id="vitals_csv"
+                        type="file"
+                        name="vitals_csv"
+                        accept=".csv,text/csv"
+                        required>
+                </label>
+
+                <div class="info-box">
+                    <h3>Required columns and units</h3>
+                    <p><code>heart_rate</code> (bpm), <code>spo2</code> (%), <code>temperature</code> (°C), and <code>respiratory_rate</code> (breaths/min).</p>
+                    <p class="file-hint">Optional: <code>time_step</code> sorts readings and must have even spacing; <code>patient_id</code> must identify a single patient. Other columns, including <code>status</code>, are ignored.</p>
+                </div>
+
+                <button type="submit" class="analyze-button">
+                    Analyze 24 readings <span aria-hidden="true">→</span>
+                </button>
+            </section>
+        </form>
+
+        <aside class="info-box">
+            <h3>About this result</h3>
+            <ol>
+                <li>The app orders rows by <code>time_step</code> when that column is present.</li>
+                <li>The model returns NORMAL or ABNORMAL and a raw score, not a calibrated probability.</li>
+                <li>The bundled training data is synthetic. This research demo is not clinically validated.</li>
+            </ol>
+        </aside>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    {% include "partials/app_shell_end.html" %}
+</body>
+
+</html>

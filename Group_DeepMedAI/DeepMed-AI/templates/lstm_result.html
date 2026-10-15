@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vital Analysis Result | DeepMed AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    {% set active_nav = "lstm" %}
+    {% set page_title = "Vital sequence result" %}
+    {% include "partials/app_shell_start.html" %}
+
+    <main class="result-container">
+        <a href="{{ url_for('lstm') }}" class="breadcrumb">← Analyze another sequence</a>
+        <section class="result-card">
+            <div class="result-icon" aria-hidden="true">♡</div>
+            <div class="page-heading">
+                <span class="eyebrow">LSTM · Sequence analysis</span>
+                <h1>Vital sequence result</h1>
+            </div>
+
+            <div class="result-value">{{ result.prediction }}</div>
+            <p class="raw-score">Raw model abnormal score: <strong>{{ "%.4f"|format(result.raw_score) }}</strong></p>
+
+            <aside class="research-note">
+                <strong>Research prototype · Not a medical diagnosis</strong>
+                <p>This score comes from the uploaded 24-reading sequence. It is not a calibrated probability. The model was trained on synthetic research data and has not been clinically validated.</p>
+            </aside>
+
+            <div class="result-actions">
+                <a href="{{ url_for('lstm') }}" class="button">Analyze another sequence</a>
+                <a href="{{ url_for('home') }}" class="button secondary">Return to overview</a>
+            </div>
+        </section>
+    </main>
+
+    {% include "partials/app_shell_end.html" %}
+</body>
+
+</html>
